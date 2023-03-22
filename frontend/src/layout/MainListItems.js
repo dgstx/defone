@@ -278,7 +278,7 @@ const MainListItems = (props) => {
            rel="noopener noreferrer"
           >
             <ListItemIcon>
-            <LocalAtmIcon />
+            <HelpOutlineIcon />
             </ListItemIcon>
             <ListItemText primary={i18n.t("mainDrawer.listItems.helps")} />
           </ListItem>
