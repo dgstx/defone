@@ -9,13 +9,19 @@
 			"type": "image/x-icon"
 		},
 		{
-			"src": "/android-chrome-192x192.png",
-			"sizes": "192x192",
+			"src": "/android-chrome.png",
+			"sizes": "512x512",
 			"type": "image/png"
 		}
 	],
 	"start_url": ".",
 	"display": "standalone",
-	"theme_color": "#ffffff",
-	"background_color": "#ffffff"
+	"theme_color": "#590e9d",
+	"background_color": "#ffffff",
+	"description": "Aplicativo para utilização da ferramenta Wasap By MeuHub no seu smartphone",
+	"categories": [
+		"business",
+		"productivity",
+		"social"
+	]
 }
