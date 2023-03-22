@@ -270,11 +270,18 @@ const MainListItems = (props) => {
         }
       />
 
-      <ListItemLink
-        to="/helps"
-        primary={i18n.t("mainDrawer.listItems.helps")}
-        icon={<HelpOutlineIcon />}
-      />
+          <ListItem
+           button
+           component="a"
+           href="https://docs.meuhub.com.br/categoria/wasap/"
+           target="_blank"
+           rel="noopener noreferrer"
+          >
+            <ListItemIcon>
+            <LocalAtmIcon />
+            </ListItemIcon>
+            <ListItemText primary={i18n.t("mainDrawer.listItems.helps")} />
+          </ListItem>
 
       <Can
         role={user.profile}
