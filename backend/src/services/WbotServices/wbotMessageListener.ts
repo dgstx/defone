@@ -895,148 +895,37 @@ const verifyQueue = async (
     });
 
 
-    const currentSchedule = await VerifyCurrentSchedule(companyId);
+    /* Tratamento para envio de mensagem quando a fila está fora do expediente */
+    if (choosenQueue.options.length === 0) {
+      const queue = await Queue.findByPk(ticket.queueId);
 
-    const scheduleType = await Setting.findOne({
-      where: {
-        companyId,
-        key: "scheduleType"
-      }
-    });
+      const { schedules }: any = queue;
+      const now = moment();
+      const weekday = now.format("dddd").toLowerCase();
+      let schedule = null;
 
-    try {
-      if (!msg.key.fromMe && scheduleType) {
-        /**
-         * Tratamento para envio de mensagem quando a empresa está fora do expediente
-         */
-        if (
-          scheduleType.value === "company" &&
-          !isNil(currentSchedule) &&
-          (!currentSchedule || currentSchedule.inActivity === false)
-        ) {
-          const body = `${whatsapp.outOfHoursMessage}`;
-
-          const debouncedSentMessage = debounce(
-            async () => {
-              await wbot.sendMessage(
-                `${ticket.contact.number}@${ticket.isGroup ? "g.us" : "s.whatsapp.net"
-                }`,
-                {
-                  text: body
-                }
-              );
-            },
-            3000,
-            ticket.id
-          );
-          debouncedSentMessage();
-          return;
-        }
-      }
-    } catch (e) {
-      Sentry.captureException(e);
-      console.log(e);
-    }
-
-    const dontReadTheFirstQuestion = ticket.queue === null;
-
-    if (
-      !ticket.queue &&
-      !isGroup &&
-      !msg.key.fromMe &&
-      !ticket.userId &&
-      whatsapp.queues.length >= 1
-    ) {
-      await verifyQueue(wbot, msg, ticket, ticket.contact);
-    }
-
-    await ticket.reload();
-
-    try {
-      if (!msg.key.fromMe && scheduleType && ticket.queueId !== null) {
-        /**
-         * Tratamento para envio de mensagem quando a fila está fora do expediente
-         */
-        const queue = await Queue.findByPk(ticket.queueId);
-
-        const { schedules }: any = queue;
-        const now = moment();
-        const weekday = now.format("dddd").toLowerCase();
-        let schedule = null;
-
-        if (Array.isArray(schedules) && schedules.length > 0) {
-          schedule = schedules.find(
-            s =>
-              s.weekdayEn === weekday &&
-              s.startTime !== "" &&
-              s.startTime !== null &&
-              s.endTime !== "" &&
-              s.endTime !== null
-          );
-        }
-
-        if (
-          scheduleType.value === "queue" &&
-          queue.outOfHoursMessage !== null &&
-          queue.outOfHoursMessage !== "" &&
-          !isNil(schedule)
-        ) {
-          const startTime = moment(schedule.startTime, "HH:mm");
-          const endTime = moment(schedule.endTime, "HH:mm");
-
-          if (now.isBefore(startTime) || now.isAfter(endTime)) {
-            const body = `${queue.outOfHoursMessage}`;
-            const debouncedSentMessage = debounce(
-              async () => {
-                await wbot.sendMessage(
-                  `${ticket.contact.number}@${ticket.isGroup ? "g.us" : "s.whatsapp.net"
-                  }`,
-                  {
-                    text: body
-                  }
-                );
-              },
-              3000,
-              ticket.id
-            );
-            debouncedSentMessage();
-            return;
-          }
-        }
-      }
-    } catch (e) {
-      Sentry.captureException(e);
-      console.log(e);
-    }
-
-    if (whatsapp.queues.length == 1 && ticket.queue) {
-      if (ticket.chatbot && !msg.key.fromMe) {
-        await handleChartbot(ticket, msg, wbot);
-      }
-    }
-    if (whatsapp.queues.length > 1 && ticket.queue) {
-      if (ticket.chatbot && !msg.key.fromMe) {
-        await handleChartbot(ticket, msg, wbot, dontReadTheFirstQuestion);
-      }
-    }
-
-    if (isNull(ticket.queueId) && ticket.status !== "open" && !msg.key.fromMe) {
-      const greetingMessage = whatsapp.greetingMessage || "";
-      if (greetingMessage !== "") {
-        await wbot.sendMessage(
-          `${ticket.contact.number}@${ticket.isGroup ? "g.us" : "s.whatsapp.net"
-          }`,
-          {
-            text: greetingMessage
-          }
+      if (Array.isArray(schedules) && schedules.length > 0) {
+        schedule = schedules.find(
+          s =>
+            s.weekdayEn === weekday &&
+            s.startTime !== "" &&
+            s.startTime !== null &&
+            s.endTime !== "" &&
+            s.endTime !== null
         );
       }
-    }
-  } catch (err) {
-    Sentry.captureException(err);
-    logger.error(`Error handling whatsapp message: Err: ${err}`);
-  }
-};
+
+      if (queue.outOfHoursMessage !== null && queue.outOfHoursMessage !== "" && !isNil(schedule)) {
+        const startTime = moment(schedule.startTime, "HH:mm");
+        const endTime = moment(schedule.endTime, "HH:mm");
+
+        if (now.isBefore(startTime) || now.isAfter(endTime)) {
+          const body = formatBody(`${queue.outOfHoursMessage}\n\n*[ # ]* - Voltar ao Menu Principal`, ticket.contact);
+          const sentMessage = await wbot.sendMessage(
+            `${contact.number}@${ticket.isGroup ? "g.us" : "s.whatsapp.net"}`, {
+            text: body,
+          }
+          );
           await verifyMessage(sentMessage, ticket, contact);
           await UpdateTicketService({
             ticketData: { queueId: null, chatbot },
