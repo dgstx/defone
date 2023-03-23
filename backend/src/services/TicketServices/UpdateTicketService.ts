@@ -97,7 +97,7 @@ const UpdateTicketService = async ({
           io.to("open")
             .to(ticketId.toString())
             .emit(`company-${ticket.companyId}-ticket`, {
-              action: "close",
+              action: "delete",
               ticketId: ticket.id
             });
 
