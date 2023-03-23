@@ -20,12 +20,12 @@ import logo2 from "../../assets/logo2.png";
  const Copyright = () => {
  	return (
  		<Typography variant="body2" color="textSecondary" align="center">
- 			{"Copyrights "}
+ 			{"Copyright "}
 			  <Link color="inherit" href="https://meuhub.com.br/chatbot-e-multiatendimento-para-whatsapp/">
  				Wasap by MeuHub
 			</Link>{" "}
  			{new Date().getFullYear()}
-			  {"©"}
+			  {"III"}
  		</Typography>
  	);
  };
