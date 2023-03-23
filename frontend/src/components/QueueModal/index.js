@@ -269,7 +269,7 @@ const QueueModal = ({ open, onClose, queueId }) => {
                             helperText={
                               touched.greetingMessage && errors.greetingMessage
                               ? "Erro: " + errors.greetingMessage
-                              : "Utilize variáveis como {{name}}, {numero}, {email} ou defina variáveis personalizadas."
+                              : "Utilize variáveis como {{name}}, {{number}}, {{email}} ou defina variáveis personalizadas."
                             }
                             variant="outlined"
                             margin="dense"
