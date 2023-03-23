@@ -134,13 +134,13 @@ const UpdateTicketService = async ({
           ticket.isGroup ? "g.us" : "s.whatsapp.net"
         }`,
         {
-          text: "\u200eVocê foi transferido, em breve iremos iniciar seu atendimento."
+          text: "\u200e_Sistema: Transferência de atendimento foi bem sucedida. Aguarde um momento, por favor._"
         }
       );
       await verifyMessage(queueChangedMessage, ticket, ticket.contact);
 
       // mensagem padrão desativada em caso de troca de fila
-      // const sentMessage = await wbot.sendMessage(`${ticket.contact.number}@c.us`, body);
+      //const sentMessage = await wbot.sendMessage(`${ticket.contact.number}@c.us`, body);
       // await verifyMessage(sentMessage, ticket, ticket.contact, companyId);
     }
 
