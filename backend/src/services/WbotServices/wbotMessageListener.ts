@@ -897,22 +897,13 @@ const verifyQueue = async (
 
     /* Tratamento para envio de mensagem quando a fila está fora do expediente */
     if (choosenQueue.options.length === 0) {
-      const queue = await Queue.findByPk(ticket.queueId);
-
+      const queue = await Queue.findByPk(choosenQueue.id);
       const { schedules }: any = queue;
       const now = moment();
       const weekday = now.format("dddd").toLowerCase();
-      let schedule = null;
-
+      let schedule;
       if (Array.isArray(schedules) && schedules.length > 0) {
-        schedule = schedules.find(
-          s =>
-            s.weekdayEn === weekday &&
-            s.startTime !== "" &&
-            s.startTime !== null &&
-            s.endTime !== "" &&
-            s.endTime !== null
-        );
+        schedule = schedules.find((s) => s.weekdayEn === weekday && s.startTime !== "" && s.startTime !== null && s.endTime !== "" && s.endTime !== null);
       }
 
       if (queue.outOfHoursMessage !== null && queue.outOfHoursMessage !== "" && !isNil(schedule)) {
