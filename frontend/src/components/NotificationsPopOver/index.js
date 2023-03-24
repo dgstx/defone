@@ -51,7 +51,7 @@ const NotificationsPopOver = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const { profile, queues } = user;
-  const [invisible] = useState(false);
+
   const [, setDesktopNotifications] = useState([]);
 
   const { tickets } = useTickets({ withUnreadMessages: "true" });
@@ -197,14 +197,11 @@ const NotificationsPopOver = () => {
         ref={anchorEl}
         aria-label="Mostrar Notificações"
         variant="contained"
-      >  
-        <Badge 
-          color="secondary"
-          variant="dot"
-          invisible={invisible || notifications.length < 1}
-         >
-          <ChatIcon /> 
-        </Badge>/
+
+      >
+         <ChatIcon />
+        <Badge badgeContent={notifications.length} color="secondary">
+        </Badge>
       </IconButton>
       <Popover
         disableScrollLock
