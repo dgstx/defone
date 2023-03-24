@@ -197,12 +197,14 @@ const NotificationsPopOver = () => {
         ref={anchorEl}
         aria-label="Mostrar Notificações"
         variant="contained"
-
-      >
-        <ChatIcon />
-        {<Badge color="secondary" variant="dot"
-          invisible={invisible || announcements.length < 1}>
-        </Badge>}
+      >  
+        <Badge 
+          color="secondary"
+          variant="dot"
+          invisible={invisible || announcements.length < 1}
+         >
+          <ChatIcon /> 
+        </Badge>/
       </IconButton>
       <Popover
         disableScrollLock
