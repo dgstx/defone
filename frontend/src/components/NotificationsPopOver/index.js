@@ -51,7 +51,7 @@ const NotificationsPopOver = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const { profile, queues } = user;
-
+  const [invisible] = useState(false);
   const [, setDesktopNotifications] = useState([]);
 
   const { tickets } = useTickets({ withUnreadMessages: "true" });
@@ -201,7 +201,7 @@ const NotificationsPopOver = () => {
         <Badge 
           color="secondary"
           variant="dot"
-          invisible={invisible || announcements.length < 1}
+          invisible={invisible || notifications.length < 1}
          >
           <ChatIcon /> 
         </Badge>/
