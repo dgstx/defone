@@ -199,8 +199,9 @@ const NotificationsPopOver = () => {
         variant="contained"
 
       >
-          <ChatIcon />
-        {<Badge badgeContent={notifications.length} color="secondary">
+        <ChatIcon />
+        {<Badge color="secondary" variant="dot"
+          invisible={invisible || announcements.length < 1}>
         </Badge>}
       </IconButton>
       <Popover
