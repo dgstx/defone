@@ -160,7 +160,7 @@ const LoggedInLayout = ({ children }) => {
 
     socket.on(`company-${companyId}-auth`, (data) => {
       if (data.user.id === +userId) {
-        toastError("Sua conta foi acessada em outro computador.");
+        toastError("Sua conta foi acessada em outro dispositivo.");
         setTimeout(() => {
           localStorage.clear();
           window.location.reload();
