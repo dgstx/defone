@@ -245,8 +245,10 @@ const Dashboard = () => {
   return (
     <div>
       <Container maxWidth="lg" className={classes.container}>
-        <Grid container spacing={3} justifyContent="flex-end">/>
-          </Grid>
+        <Grid item xs={12}>
+          <h1 style={{ color: "#primary", textAlign: "left" }}>Acompanhe um breve resumo dos atendimentos 🚀</h1>
+        </Grid>
+        <Grid container spacing={3} justifyContent="flex-end">
           <Grid item xs={12}>
             <Paper className={classes.fixedHeightPaper}>
               <Chart />
