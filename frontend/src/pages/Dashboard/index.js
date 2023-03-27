@@ -246,7 +246,7 @@ const Dashboard = () => {
     <div>
       <Container maxWidth="lg" className={classes.container}>
         <Grid item xs={12}>
-          <h1 style={{ color: "#primary", textAlign: "left" }}>Acompanhe um breve resumo dos atendimentos 🚀</h1>
+          <h1 style={{ color: "primary", textAlign: "left" }}>Acompanhe um breve resumo dos atendimentos 🚀</h1>
         </Grid>
         <Grid container spacing={3} justifyContent="flex-end">
           <Grid item xs={12}>
