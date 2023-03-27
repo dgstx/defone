@@ -245,15 +245,6 @@ const Dashboard = () => {
   return (
     <div>
       <Container maxWidth="lg" className={classes.container}>
-        <Grid container spacing={3} justifyContent="flex-end">
-          <Grid item xs={12} sm={6} md={3}>
-            <CardCounter
-              icon={<TodayIcon fontSize="inherit" />}
-              title="Data Vencimento"
-              value={companyDueDate}
-              loading={loading}
-            />
-          </Grid>
           <Grid item xs={12}>
             <Paper className={classes.fixedHeightPaper}>
               <Chart />
