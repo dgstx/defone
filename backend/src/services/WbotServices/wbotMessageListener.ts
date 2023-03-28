@@ -1191,8 +1191,8 @@ const handleChartbot = async (
           body += options;
         }
   
-        aditionalOptions += "*[ 0 ]* - *Voltar*\n";
-        aditionalOptions += "*[ # ]* - *Menu inicial*";
+        aditionalOptions += "[ 0 ] - *Voltar*\n";
+        aditionalOptions += "[ # ] - *Menu inicial*";
   
         body += aditionalOptions;
       } else {
@@ -1204,8 +1204,8 @@ const handleChartbot = async (
           }
         } else {
 
-          body += `*[ 0 ]* - *Voltar*\n`;
-          body += `*[ # ]* - *Menu inicial*`;
+          body += `[ 0 ] - *Voltar*\n`;
+          body += `[ # ] - *Menu inicial*`;
         }
       }
   
