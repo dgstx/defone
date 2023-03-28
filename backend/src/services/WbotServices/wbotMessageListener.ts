@@ -920,7 +920,7 @@ const verifyQueue = async (
           );
           await verifyMessage(sentMessage, ticket, contact);
           await UpdateTicketService({
-            ticketData: { queueId: null, chatbot },
+            ticketData: { queueId: choosenQueue.id, chatbot },
             ticketId: ticket.id,
             companyId: ticket.companyId,
           });

@@ -143,7 +143,7 @@ const QueueModal = ({ open, onClose, queueId }) => {
             } else {
                 await api.post("/queue", { ...values, schedules });
             }
-            toast.success(i18n.t("queueModal.success"));
+            toast.success(i18n.t("Fila atualizada com sucesso!"));
             handleClose();
         } catch (err) {
             toastError(err);
