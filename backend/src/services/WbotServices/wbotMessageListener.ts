@@ -53,6 +53,7 @@ import GetDefaultWhatsApp from "../../helpers/GetDefaultWhatsApp";
 import { CreateOrUpdateBaileysChatService } from "../BaileysChatServices/CreateOrUpdateBaileysChatService";
 import { ShowBaileysChatService } from "../BaileysChatServices/ShowBaileysChatService";
 import Whatsapp from "../../models/Whatsapp";
+import { getMessageOptions } from "./SendWhatsAppMedia";
 
 const puppeteer = require('puppeteer');
 const fs = require('fs')
